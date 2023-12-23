@@ -8,5 +8,11 @@
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
         </item>
     </style>
+    
+    <style name="Theme.Pexels.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/red</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pexels</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_splash_logo</item>
+    </style>
 
 </resources>
