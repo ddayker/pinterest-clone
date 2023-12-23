@@ -3,19 +3,20 @@ package com.dayker.pexels
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.dayker.pexels.ui.theme.AppTheme
+import androidx.navigation.compose.rememberNavController
+import com.dayker.pexels.core.navigation.graphs.RootNavigationGraph
+import com.dayker.pexels.core.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -29,9 +30,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text(text = "Pexels by Dayker", style = MaterialTheme.typography.bodyLarge)
-                    }
+                    val navController = rememberNavController()
+                    val windowSize = calculateWindowSizeClass(this@MainActivity)
+                    RootNavigationGraph(navController = navController, windowSize = windowSize)
                 }
             }
         }

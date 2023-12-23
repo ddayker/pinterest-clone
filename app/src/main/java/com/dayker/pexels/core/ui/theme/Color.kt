@@ -1,4 +1,4 @@
-package com.dayker.pexels.ui.theme
+package com.dayker.pexels.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
