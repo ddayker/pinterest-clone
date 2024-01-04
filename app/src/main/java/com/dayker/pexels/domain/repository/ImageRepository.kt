@@ -16,7 +16,9 @@ interface ImageRepository {
         id: Int,
         isImageCurated: Boolean = false,
         isImageBookmark: Boolean = false
-    ): Flow<Resource<Image>>
+    ): Resource<Image>
+
+    suspend fun getBookmarks(): Flow<Resource<List<Image>>>
 
     suspend fun checkForBookmark(src: String): Boolean
 

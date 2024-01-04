@@ -11,7 +11,7 @@ import com.dayker.pexels.core.navigation.navanimations.intoLeftAnimation
 import com.dayker.pexels.core.navigation.navanimations.intoRightAnimation
 import com.dayker.pexels.core.navigation.navanimations.outLeftAnimation
 import com.dayker.pexels.core.navigation.navanimations.outRightAnimation
-import com.dayker.pexels.presentation.favorites.FavoritesScreen
+import com.dayker.pexels.presentation.bookmarks.BookmarksScreen
 import com.dayker.pexels.presentation.home.HomeScreen
 
 @SuppressLint("RestrictedApi")
@@ -81,7 +81,7 @@ fun NavigationBarNavGraph(
                 }
             }
         ) {
-            FavoritesScreen(
+            BookmarksScreen(
                 modifier = modifier,
                 navController = rootNavController
             )

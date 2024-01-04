@@ -14,8 +14,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,42 +37,37 @@ class DetailsViewModel @Inject constructor(
 
         if (id != -1) {
             viewModelScope.launch {
-                repository.getImageDetails(
+                val result = repository.getImageDetails(
                     id = id,
                     isImageCurated = isCurated,
                     isImageBookmark = isBookmark
-                ).onEach { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            if (result.data != null) {
-                                if (!isBookmark) {
-                                    isBookmark = repository.checkForBookmark(result.data.src)
-                                }
-                                _state.update {
-                                    DetailsState.ImageDetails(
-                                        photographer = result.data.photographer,
-                                        src = result.data.src,
-                                        isBookmark = isBookmark
-                                    )
-                                }
+                )
+                when (result) {
+                    is Resource.Success -> {
+                        if (result.data != null) {
+                            if (!isBookmark) {
+                                isBookmark = repository.checkForBookmark(result.data.src)
                             }
-                        }
-
-                        is Resource.Error -> {
                             _state.update {
-                                DetailsState.IsNotFound
-                            }
-                        }
-
-                        is Resource.Loading -> {
-                            _state.update {
-                                DetailsState.IsLoading
+                                DetailsState.ImageDetails(
+                                    photographer = result.data.photographer,
+                                    src = result.data.src,
+                                    isBookmark = isBookmark
+                                )
                             }
                         }
                     }
-                }.launchIn(this)
 
+                    is Resource.Error -> {
+                        _state.update {
+                            DetailsState.IsNotFound
+                        }
+                    }
+
+                    else -> {}
+                }
             }
+
         } else {
             _state.update {
                 DetailsState.IsNotFound

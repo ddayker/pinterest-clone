@@ -19,8 +19,10 @@ import com.dayker.pexels.domain.model.Collection
 import com.dayker.pexels.domain.model.Image
 import com.dayker.pexels.domain.repository.ImageRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(
@@ -44,7 +46,7 @@ class ImageRepositoryImpl @Inject constructor(
                 }
             )
             return pager.flow.map { pagingData ->
-                pagingData.map { Image(it) }
+                pagingData.map(::Image)
             }
         } else {
             val pager = Pager(
@@ -58,7 +60,7 @@ class ImageRepositoryImpl @Inject constructor(
                     db.curatedDao.imagePagingSource()
                 })
             return pager.flow.map { pagingData ->
-                pagingData.map { Image(it) }
+                pagingData.map(::Image)
             }
         }
     }
@@ -67,27 +69,22 @@ class ImageRepositoryImpl @Inject constructor(
         try {
             val response = apiService.getFeaturedCollections(perPage = quantity)
             return if (response.isSuccessful) {
-                val collections = response.body()?.collections?.map { Collection(it) }
+                val collections = response.body()?.collections?.map(::Collection)
                 if (!collections.isNullOrEmpty()) {
                     db.withTransaction {
                         db.curatedDao.clearAllCollections()
-                        db.curatedDao.upsertAllCollections(collections = collections.map {
-                            CollectionEntity(
-                                it
-                            )
-                        })
-
+                        db.curatedDao.upsertAllCollections(collections = collections.map(::CollectionEntity))
                     }
                     collections
                 } else {
-                    db.curatedDao.getCollections().map { Collection(it) }
+                    db.curatedDao.getCollections().map(::Collection)
                 }
             } else {
-                db.curatedDao.getCollections().map { Collection(it) }
+                db.curatedDao.getCollections().map(::Collection)
             }
         } catch (e: Exception) {
             println(e.printStackTrace())
-            return db.curatedDao.getCollections().map { Collection(it) }
+            return db.curatedDao.getCollections().map(::Collection)
         }
     }
 
@@ -95,40 +92,55 @@ class ImageRepositoryImpl @Inject constructor(
         id: Int,
         isImageCurated: Boolean,
         isImageBookmark: Boolean
-    ): Flow<Resource<Image>> = flow {
-        emit(Resource.Loading())
+    ): Resource<Image> {
+
         try {
             if (isImageBookmark) {
                 val image = db.bookmarksDao.getImageById(id)
-                if (image != null) {
-                    emit(Resource.Success(Image(image)))
+                return if (image != null) {
+                    Resource.Success(Image(image))
                 } else {
-                    emit(Resource.Error())
+                    Resource.Error()
                 }
             } else if (isImageCurated) {
                 val image = db.curatedDao.getImageById(id)
-                if (image != null) {
-                    emit(Resource.Success(Image(image)))
+                return if (image != null) {
+                    Resource.Success(Image(image))
                 } else {
-                    emit(Resource.Error())
+                    (Resource.Error())
                 }
             } else {
                 val response = apiService.getImageDetails(id = id)
-                if (response.isSuccessful) {
+                return if (response.isSuccessful) {
                     val imageDto = response.body()
                     if (imageDto != null) {
-                        emit(Resource.Success(data = Image(imageDto)))
+                        Resource.Success(data = Image(imageDto))
                     } else {
-                        emit(Resource.Error())
+                        Resource.Error()
                     }
                 } else {
-                    emit(Resource.Error())
+                    Resource.Error()
                 }
             }
         } catch (e: Exception) {
             println(e.printStackTrace())
+            return Resource.Error()
+        }
+    }
+
+    override suspend fun getBookmarks(): Flow<Resource<List<Image>>> = flow {
+        emit(Resource.Loading())
+        try {
+            db.bookmarksDao.getBookmarks().map { entities ->
+                entities.map(::Image)
+            }.onEach {
+                emit(Resource.Success(data = it))
+            }.collect()
+        } catch (e: Exception) {
+            println(e.printStackTrace())
             emit(Resource.Error())
         }
+
     }
 
     override suspend fun checkForBookmark(src: String): Boolean =
