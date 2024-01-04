@@ -2,4 +2,9 @@
     <string name="app_name">Pexels</string>
     <string name="home">Home</string>
     <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="try_again">Try Again</string>
+    <string name="explore">Explore</string>
+    <string name="you_haven_t_saved_anything_yet">You haven\'t saved anything yet</string>
+    <string name="no_results_found">No results found</string>
 </resources>

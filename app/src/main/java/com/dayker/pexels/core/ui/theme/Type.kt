@@ -43,5 +43,12 @@ val Typography = Typography(
         fontSize = 14.sp,
         lineHeight = 18.sp,
         letterSpacing = 0.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = mulishFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
+        letterSpacing = 0.02.sp
     )
 )

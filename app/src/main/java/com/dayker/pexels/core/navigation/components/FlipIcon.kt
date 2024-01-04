@@ -1,4 +1,4 @@
-package com.dayker.pexels.core.components
+package com.dayker.pexels.core.navigation.components
 
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState

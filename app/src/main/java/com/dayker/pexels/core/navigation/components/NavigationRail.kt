@@ -24,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.dayker.pexels.core.components.FlipIcon
 import com.dayker.pexels.core.navigation.NavigationBarScreen
 
 @Composable
@@ -39,7 +38,7 @@ fun AppNavigationRail(
         visible = isDestination
     ) {
         Surface(
-            shadowElevation = 15.dp,
+            shadowElevation = 25.dp,
         ) {
             NavigationRail(
                 modifier = modifier.width(120.dp),
