@@ -19,6 +19,7 @@ import com.dayker.pexels.presentation.home.HomeScreen
 fun NavigationBarNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
+    rootNavController: NavHostController
 ) {
     NavHost(
         navController = navController,
@@ -52,7 +53,7 @@ fun NavigationBarNavGraph(
         ) {
             HomeScreen(
                 modifier = modifier,
-                navController = navController
+                navController = rootNavController
             )
         }
         composable(
@@ -82,7 +83,7 @@ fun NavigationBarNavGraph(
         ) {
             FavoritesScreen(
                 modifier = modifier,
-                navController = navController
+                navController = rootNavController
             )
         }
     }

@@ -61,7 +61,6 @@ fun ImageItem(
                         MaterialTheme.colorScheme.secondary
                     )
                     .shimmerEffect(),
-
                 contentAlignment = Alignment.Center
             ) {
                 Icon(

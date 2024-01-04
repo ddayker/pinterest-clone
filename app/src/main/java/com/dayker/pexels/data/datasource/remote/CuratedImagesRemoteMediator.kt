@@ -8,7 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.dayker.pexels.data.datasource.local.ImageDatabase
 import com.dayker.pexels.data.datasource.local.entity.CuratedImageEntity
-import com.dayker.pexels.data.mapper.ImageEntity
+import com.dayker.pexels.data.mapper.CuratedImageEntity
 import okio.IOException
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -46,11 +46,11 @@ class CuratedImagesRemoteMediator @Inject constructor(
 
             imageDb.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    imageDb.dao.clearAllImages()
-                    imageDb.dao.resetImageAutoIncrementIndexes()
+                    imageDb.curatedDao.clearAllImages()
+                    imageDb.curatedDao.resetImageAutoIncrementIndexes()
                 }
-                val imageEntities = images.map { ImageEntity(it) }
-                imageDb.dao.upsertAllImages(imageEntities)
+                val imageEntities = images.map { CuratedImageEntity(it) }
+                imageDb.curatedDao.upsertAllImages(imageEntities)
             }
 
             MediatorResult.Success(

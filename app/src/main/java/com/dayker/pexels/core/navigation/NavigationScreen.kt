@@ -20,6 +20,7 @@ import com.dayker.pexels.core.navigation.graphs.NavigationBarNavGraph
 @Composable
 fun NavigationScreen(
     navController: NavHostController = rememberNavController(),
+    rootNavController: NavHostController,
     windowSize: WindowSizeClass
 ) {
     val screens = listOf(
@@ -32,6 +33,7 @@ fun NavigationScreen(
         WindowWidthSizeClass.Compact -> {
             AppNavigationPortrait(
                 navController,
+                rootNavController,
                 currentDestination,
                 screens,
                 elementOnClick = { route ->
@@ -43,6 +45,7 @@ fun NavigationScreen(
         else -> {
             AppNavigationLandscape(
                 navController,
+                rootNavController,
                 currentDestination,
                 screens,
                 elementOnClick = { route ->
@@ -63,6 +66,7 @@ fun elementOnClick(route: String, navController: NavHostController) {
 @Composable
 fun AppNavigationLandscape(
     navController: NavHostController,
+    rootNavController: NavHostController,
     currentDestination: NavDestination?,
     screens: List<NavigationBarScreen>,
     elementOnClick: (String) -> Unit
@@ -73,13 +77,14 @@ fun AppNavigationLandscape(
             screens = screens,
             elementOnClick = elementOnClick
         )
-        NavigationBarNavGraph(navController = navController)
+        NavigationBarNavGraph(navController = navController, rootNavController = rootNavController)
     }
 }
 
 @Composable
 fun AppNavigationPortrait(
     navController: NavHostController,
+    rootNavController: NavHostController,
     currentDestination: NavDestination?,
     screens: List<NavigationBarScreen>,
     elementOnClick: (String) -> Unit
@@ -95,6 +100,7 @@ fun AppNavigationPortrait(
     ) {
         NavigationBarNavGraph(
             navController = navController,
+            rootNavController = rootNavController,
             modifier = Modifier.padding(bottom = it.calculateBottomPadding())
         )
     }

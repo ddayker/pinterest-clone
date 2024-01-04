@@ -16,6 +16,9 @@ interface CuratedDao {
     @Query("SELECT * FROM curated")
     fun imagePagingSource(): PagingSource<Int, CuratedImageEntity>
 
+    @Query("SELECT * FROM curated WHERE id = :id")
+    suspend fun getImageById(id: Int): CuratedImageEntity?
+
     @Query("DELETE FROM curated")
     suspend fun clearAllImages()
 

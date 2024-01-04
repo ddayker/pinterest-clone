@@ -15,7 +15,10 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.dayker.pexels.core.components.Container
+import com.dayker.pexels.core.navigation.graphs.Graph.DETAILS_ROUTE
+import com.dayker.pexels.core.navigation.graphs.Graph.IMAGE_ID_PARAM
+import com.dayker.pexels.core.navigation.graphs.Graph.IS_IMAGE_CURATED_PARAM
+import com.dayker.pexels.core.util.Container
 import com.dayker.pexels.domain.model.Image
 import com.dayker.pexels.presentation.home.components.FeaturedList
 import com.dayker.pexels.presentation.home.components.ImagesGrid
@@ -35,7 +38,11 @@ fun HomeScreen(
     Container(viewModel.actionFlow) { action ->
         when (action) {
             is HomeScreenAction.OpenImageDetails -> {
-                println(action.id)
+                val routeWithParams =
+                    "${DETAILS_ROUTE}?${IMAGE_ID_PARAM}=${action.id}&${IS_IMAGE_CURATED_PARAM}=${action.isCurated}"
+                navController.navigate(route = routeWithParams) {
+                    launchSingleTop = true
+                }
             }
         }
     }

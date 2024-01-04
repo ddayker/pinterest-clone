@@ -1,4 +1,4 @@
-package com.dayker.pexels.di
+package com.dayker.pexels.data.di
 
 import android.content.Context
 import androidx.room.Room
@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
+abstract class DataModule {
 
     companion object {
 

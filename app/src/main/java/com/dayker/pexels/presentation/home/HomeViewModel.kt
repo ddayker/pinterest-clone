@@ -57,7 +57,13 @@ class HomeViewModel @Inject constructor(
 
             is HomeScreenEvent.OnImageClicked -> {
                 viewModelScope.launch {
-                    _actionFlow.emit(HomeScreenAction.OpenImageDetails(id = event.id))
+                    val isCurated = state.value.query.isEmpty()
+                    _actionFlow.emit(
+                        HomeScreenAction.OpenImageDetails(
+                            id = event.id,
+                            isCurated = isCurated
+                        )
+                    )
                 }
             }
 

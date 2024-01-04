@@ -1,4 +1,4 @@
-package com.dayker.pexels.core.components
+package com.dayker.pexels.core.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

@@ -2,10 +2,12 @@ package com.dayker.pexels.data.datasource.remote
 
 import com.dayker.pexels.BuildConfig
 import com.dayker.pexels.data.datasource.remote.dto.CollectionsResponse
+import com.dayker.pexels.data.datasource.remote.dto.ImageDto
 import com.dayker.pexels.data.datasource.remote.dto.ImagesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PexelsApiService {
@@ -30,6 +32,12 @@ interface PexelsApiService {
         @Header("Authorization") apiKey: String = API_KEY,
         @Query("per_page") perPage: Int
     ): Response<CollectionsResponse>
+
+    @GET("photos/{photoId}")
+    suspend fun getImageDetails(
+        @Header("Authorization") apiKey: String = API_KEY,
+        @Path("photoId") id: Int,
+    ): Response<ImageDto>
 
     companion object {
 
