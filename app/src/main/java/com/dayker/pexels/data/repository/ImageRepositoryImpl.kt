@@ -11,6 +11,7 @@ import com.dayker.pexels.data.datasource.local.ImageDatabase
 import com.dayker.pexels.data.datasource.remote.CuratedImagesRemoteMediator
 import com.dayker.pexels.data.datasource.remote.ImagePagingSource
 import com.dayker.pexels.data.datasource.remote.PexelsApiService
+import com.dayker.pexels.data.downloader.AndroidDownloader
 import com.dayker.pexels.data.mapper.BookmarkImageEntity
 import com.dayker.pexels.data.mapper.Collection
 import com.dayker.pexels.data.mapper.CollectionEntity
@@ -29,7 +30,8 @@ class ImageRepositoryImpl @Inject constructor(
     private val db: ImageDatabase,
     private val apiService: PexelsApiService,
     private val curatedImagesRemoteMediator: CuratedImagesRemoteMediator,
-    private val pagingSourceFactory: ImagePagingSource.ImagePagingSourceFactory
+    private val pagingSourceFactory: ImagePagingSource.ImagePagingSourceFactory,
+    private val downloader: AndroidDownloader,
 ) : ImageRepository {
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getImages(query: String): Flow<PagingData<Image>> {
@@ -152,5 +154,13 @@ class ImageRepositoryImpl @Inject constructor(
 
     override suspend fun deleteBookmark(src: String) {
         db.bookmarksDao.deleteImageBySrc(src)
+    }
+
+    override suspend fun saveImage(src: String) {
+        try {
+            downloader.downloadFile(src)
+        } catch (e: Exception) {
+            println(e.printStackTrace())
+        }
     }
 }

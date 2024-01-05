@@ -106,7 +106,9 @@ class DetailsViewModel @Inject constructor(
             }
 
             DetailsScreenEvent.OnDownloadClicked -> {
-
+                viewModelScope.launch {
+                    repository.saveImage(state.value.src)
+                }
             }
 
             DetailsScreenEvent.OnExploreClicked -> {

@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
+    implementation(libs.accompanist.permissions)
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.compiler)
     implementation(libs.coil)

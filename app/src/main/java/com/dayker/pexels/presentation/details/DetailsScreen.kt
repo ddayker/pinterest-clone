@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,11 @@ import com.dayker.pexels.core.util.Container
 import com.dayker.pexels.presentation.details.components.DetailsBottomBar
 import com.dayker.pexels.presentation.details.components.DetailsTopBar
 import com.dayker.pexels.presentation.details.components.NotFoundStub
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun DetailsScreen(
     modifier: Modifier = Modifier,
@@ -32,6 +37,14 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    val permissionState =
+        rememberPermissionState(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    if (!permissionState.status.isGranted) {
+        LaunchedEffect(permissionState) {
+            permissionState.launchPermissionRequest()
+        }
+    }
 
     Container(viewModel.actionFlow) { action ->
         when (action) {

@@ -1,9 +1,12 @@
 package com.dayker.pexels.data.di
 
+import android.app.DownloadManager
 import android.content.Context
 import androidx.room.Room
 import com.dayker.pexels.data.datasource.local.ImageDatabase
 import com.dayker.pexels.data.datasource.remote.PexelsApiService
+import com.dayker.pexels.data.downloader.AndroidDownloader
+import com.dayker.pexels.data.downloader.Downloader
 import com.dayker.pexels.data.repository.ImageRepositoryImpl
 import com.dayker.pexels.domain.repository.ImageRepository
 import dagger.Binds
@@ -42,10 +45,21 @@ abstract class DataModule {
                 .build()
                 .create()
         }
+
+        @Singleton
+        @Provides
+        fun provideDownloadManager(@ApplicationContext context: Context): DownloadManager {
+            return context.getSystemService(DownloadManager::class.java)
+        }
     }
 
     @Binds
     abstract fun bindMovieRepository(
         repository: ImageRepositoryImpl
     ): ImageRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDownloader(androidDownloader: AndroidDownloader): Downloader
+
 }

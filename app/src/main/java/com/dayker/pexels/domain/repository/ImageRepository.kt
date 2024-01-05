@@ -25,4 +25,6 @@ interface ImageRepository {
     suspend fun addBookmark(image: Image)
 
     suspend fun deleteBookmark(src: String)
+
+    suspend fun saveImage(src: String)
 }
