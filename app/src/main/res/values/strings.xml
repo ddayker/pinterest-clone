@@ -9,4 +9,19 @@
     <string name="no_results_found">No results found</string>
     <string name="download">Download</string>
     <string name="bookmarks">Bookmarks</string>
+    <string name="swipe"><![CDATA[Swipe >>>]]></string>
+    <string name="welcome_to_pexels">Welcome to Pexels!</string>
+    <string name="the_best_free_stock_photos_royalty_free_images_videos_shared_by_creators"><![CDATA[The best free stock photos, royalty free images & videos shared by creators.]]></string>
+    <string name="welcome_to">"Welcome to "</string>
+    <string name="pexels">Pexels</string>
+    <string name="we_for">"We for "</string>
+    <string name="everyone">everyone</string>
+    <string name="if_you_see">"If you see "</string>
+    <string name="a_photo_or_video">"a photo or video "</string>
+    <string name="you_like_simply_download_it">"you like, simply download it "</string>
+    <string name="for_free">for free!</string>
+    <string name="get_started">Get started</string>
+    <string name="explore_">"Explore "</string>
+    <string name="pexels_">"Pexels "</string>
+    <string name="now">now!</string>
 </resources>

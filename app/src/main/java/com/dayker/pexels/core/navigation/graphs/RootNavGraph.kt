@@ -14,15 +14,23 @@ import com.dayker.pexels.core.navigation.graphs.Graph.IS_IMAGE_CURATED_PARAM
 import com.dayker.pexels.core.navigation.navanimations.scaleInAnimation
 import com.dayker.pexels.core.navigation.navanimations.scaleOutAnimation
 import com.dayker.pexels.presentation.details.DetailsScreen
+import com.dayker.pexels.presentation.onboarding.OnboardingScreen
 
 
 @Composable
-fun RootNavigationGraph(navController: NavHostController, windowSize: WindowSizeClass) {
+fun RootNavigationGraph(
+    navController: NavHostController,
+    windowSize: WindowSizeClass,
+    isOnboardingFinished: Boolean
+) {
     NavHost(
         navController = navController,
         route = Graph.ROOT,
-        startDestination = Graph.NAVIGATION_BAR_ROUTE
+        startDestination = if (isOnboardingFinished) Graph.NAVIGATION_BAR_ROUTE else Graph.ONBOARDING_ROUTE
     ) {
+        composable(route = Graph.ONBOARDING_ROUTE) {
+            OnboardingScreen(navController = navController)
+        }
         composable(route = Graph.NAVIGATION_BAR_ROUTE) {
             NavigationScreen(windowSize = windowSize, rootNavController = navController)
         }
@@ -66,6 +74,7 @@ fun RootNavigationGraph(navController: NavHostController, windowSize: WindowSize
 }
 
 object Graph {
+    const val ONBOARDING_ROUTE = "onboarding_route"
 
     const val ROOT = "root"
     const val NAVIGATION_BAR_ROUTE = "navigation_route"

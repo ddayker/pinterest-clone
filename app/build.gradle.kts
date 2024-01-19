@@ -84,6 +84,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     implementation(libs.accompanist.permissions)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.lottie.compose)
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.compiler)
     implementation(libs.coil)
