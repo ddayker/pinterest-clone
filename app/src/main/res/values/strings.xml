@@ -9,4 +9,5 @@
     <string name="no_results_found">No results found</string>
     <string name="download">Download</string>
     <string name="bookmarks">Bookmarks</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
 </resources>

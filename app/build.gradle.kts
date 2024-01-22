@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.daggerHiltAndroid)
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 val appProperties = Properties().apply {
@@ -84,6 +85,12 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     implementation(libs.accompanist.permissions)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.lottie.compose)
+    implementation(libs.google.services)
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.compiler)
     implementation(libs.coil)

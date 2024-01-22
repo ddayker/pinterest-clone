@@ -21,8 +21,9 @@ fun RootNavigationGraph(navController: NavHostController, windowSize: WindowSize
     NavHost(
         navController = navController,
         route = Graph.ROOT,
-        startDestination = Graph.NAVIGATION_BAR_ROUTE
+        startDestination = Graph.AUTH_GRAPH_ROUTE
     ) {
+        authNavGraph(navController = navController)
         composable(route = Graph.NAVIGATION_BAR_ROUTE) {
             NavigationScreen(windowSize = windowSize, rootNavController = navController)
         }
@@ -69,6 +70,7 @@ object Graph {
 
     const val ROOT = "root"
     const val NAVIGATION_BAR_ROUTE = "navigation_route"
+    const val AUTH_GRAPH_ROUTE = "auth_graph"
 
     const val DETAILS_ROUTE = "details_route"
     const val IMAGE_ID_PARAM = "movie_id"

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.dayker.pexels" />
+                  <option name="mobileSdkAppId" value="1:207733028885:android:3d4116b38d2455ba0fb61c" />
+                  <option name="projectId" value="pexelslab-cc72a" />
+                  <option name="projectNumber" value="207733028885" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
