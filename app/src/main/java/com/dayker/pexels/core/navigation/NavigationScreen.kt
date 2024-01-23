@@ -26,6 +26,7 @@ fun NavigationScreen(
     val screens = listOf(
         NavigationBarScreen.Home,
         NavigationBarScreen.Favorites,
+        NavigationBarScreen.Profile
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -35,10 +36,11 @@ fun NavigationScreen(
                 navController,
                 rootNavController,
                 currentDestination,
+                windowSize,
                 screens,
                 elementOnClick = { route ->
                     elementOnClick(route = route, navController = navController)
-                }
+                },
             )
         }
 
@@ -47,6 +49,7 @@ fun NavigationScreen(
                 navController,
                 rootNavController,
                 currentDestination,
+                windowSize,
                 screens,
                 elementOnClick = { route ->
                     elementOnClick(route = route, navController = navController)
@@ -68,6 +71,7 @@ fun AppNavigationLandscape(
     navController: NavHostController,
     rootNavController: NavHostController,
     currentDestination: NavDestination?,
+    windowSize: WindowSizeClass,
     screens: List<NavigationBarScreen>,
     elementOnClick: (String) -> Unit
 ) {
@@ -77,7 +81,11 @@ fun AppNavigationLandscape(
             screens = screens,
             elementOnClick = elementOnClick
         )
-        NavigationBarNavGraph(navController = navController, rootNavController = rootNavController)
+        NavigationBarNavGraph(
+            navController = navController,
+            rootNavController = rootNavController,
+            windowSize = windowSize
+        )
     }
 }
 
@@ -86,6 +94,7 @@ fun AppNavigationPortrait(
     navController: NavHostController,
     rootNavController: NavHostController,
     currentDestination: NavDestination?,
+    windowSize: WindowSizeClass,
     screens: List<NavigationBarScreen>,
     elementOnClick: (String) -> Unit
 ) {
@@ -101,7 +110,8 @@ fun AppNavigationPortrait(
         NavigationBarNavGraph(
             navController = navController,
             rootNavController = rootNavController,
-            modifier = Modifier.padding(bottom = it.calculateBottomPadding())
+            modifier = Modifier.padding(bottom = it.calculateBottomPadding()),
+            windowSize = windowSize
         )
     }
 }

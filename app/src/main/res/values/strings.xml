@@ -10,4 +10,9 @@
     <string name="download">Download</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="profile">Profile</string>
+    <string name="log_out">Log out</string>
+    <string name="explore_">"Explore "</string>
+    <string name="pexels">"pexels "</string>
+    <string name="now">now!</string>
 </resources>

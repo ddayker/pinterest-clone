@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.lottie.compose)
     implementation(libs.google.services)
+    implementation(libs.accompanist.adaptive)
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.compiler)
     implementation(libs.coil)

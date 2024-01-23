@@ -23,4 +23,11 @@ sealed class NavigationBarScreen(
         activeIcon = R.drawable.picked_favorites,
         inactiveIcon = R.drawable.favorites,
     )
+
+    object Profile : NavigationBarScreen(
+        route = "profile",
+        title = R.string.profile,
+        activeIcon = R.drawable.profile_icon,
+        inactiveIcon = R.drawable.person_icon_outlined,
+    )
 }

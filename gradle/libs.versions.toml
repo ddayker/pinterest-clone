@@ -33,6 +33,7 @@ firebase-common-ktx = "20.4.2"
 firebase-auth-ktx = "22.3.1"
 lottie-compose = "6.3.0"
 google-services = "4.4.0"
+accompanist-adaptive = "0.33.2-alpha"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -75,6 +76,7 @@ firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-k
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth-ktx" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie-compose" }
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "google-services" }
+accompanist-adaptive = { group = "com.google.accompanist", name = "accompanist-adaptive", version.ref = "accompanist-adaptive" }
 
 
 [plugins]

@@ -21,12 +21,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.dayker.pexels.R
 import com.dayker.pexels.auth.presentation.components.ErrorSnackbar
 import com.dayker.pexels.auth.presentation.components.GoogleSignInButton
 import com.dayker.pexels.core.navigation.graphs.Graph
@@ -99,11 +101,11 @@ fun AuthenticationScreen(
             Text(
                 modifier = Modifier.padding(horizontal = 30.dp),
                 text = buildAnnotatedString {
-                    append("Explore ")
+                    append(stringResource(R.string.explore_))
                     withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                        append("pexels ")
+                        append(stringResource(R.string.pexels))
                     }
-                    append("now!")
+                    append(stringResource(R.string.now))
                 }
             )
             GoogleSignInButton(
