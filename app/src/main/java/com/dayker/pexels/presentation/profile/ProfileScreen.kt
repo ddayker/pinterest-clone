@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.dayker.pexels.core.navigation.graphs.Graph
 import com.dayker.pexels.core.util.Container
 import com.dayker.pexels.presentation.profile.components.LogOutFab
 import com.dayker.pexels.presentation.profile.components.ProfileInfo
@@ -28,7 +29,7 @@ fun ProfileScreen(
     Container(viewModel.actionFlow) { action ->
         when (action) {
             ProfileScreenAction.LogOut -> {
-                // TODO: navigate to Auth
+                navController.navigate(Graph.AUTH_GRAPH_ROUTE)
             }
         }
     }

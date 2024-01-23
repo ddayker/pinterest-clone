@@ -1,5 +1,6 @@
 package com.dayker.pexels.core.navigation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -12,15 +13,14 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.dayker.pexels.core.navigation.components.AppBottomBar
 import com.dayker.pexels.core.navigation.components.AppNavigationRail
-import com.dayker.pexels.core.navigation.graphs.NavigationBarNavGraph
+import com.dayker.pexels.core.navigation.graphs.NavigationBarScreen
+import com.dayker.pexels.core.navigation.graphs.RootNavigationGraph
 
 @Composable
-fun NavigationScreen(
-    navController: NavHostController = rememberNavController(),
-    rootNavController: NavHostController,
+fun ComposeApplication(
+    navController: NavHostController,
     windowSize: WindowSizeClass
 ) {
     val screens = listOf(
@@ -34,7 +34,6 @@ fun NavigationScreen(
         WindowWidthSizeClass.Compact -> {
             AppNavigationPortrait(
                 navController,
-                rootNavController,
                 currentDestination,
                 windowSize,
                 screens,
@@ -47,7 +46,6 @@ fun NavigationScreen(
         else -> {
             AppNavigationLandscape(
                 navController,
-                rootNavController,
                 currentDestination,
                 windowSize,
                 screens,
@@ -69,21 +67,22 @@ fun elementOnClick(route: String, navController: NavHostController) {
 @Composable
 fun AppNavigationLandscape(
     navController: NavHostController,
-    rootNavController: NavHostController,
     currentDestination: NavDestination?,
     windowSize: WindowSizeClass,
     screens: List<NavigationBarScreen>,
     elementOnClick: (String) -> Unit
 ) {
     Row {
-        AppNavigationRail(
-            currentDestination = currentDestination,
-            screens = screens,
-            elementOnClick = elementOnClick
-        )
-        NavigationBarNavGraph(
+        val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+        AnimatedVisibility(bottomBarDestination) {
+            AppNavigationRail(
+                currentDestination = currentDestination,
+                screens = screens,
+                elementOnClick = elementOnClick
+            )
+        }
+        RootNavigationGraph(
             navController = navController,
-            rootNavController = rootNavController,
             windowSize = windowSize
         )
     }
@@ -92,7 +91,6 @@ fun AppNavigationLandscape(
 @Composable
 fun AppNavigationPortrait(
     navController: NavHostController,
-    rootNavController: NavHostController,
     currentDestination: NavDestination?,
     windowSize: WindowSizeClass,
     screens: List<NavigationBarScreen>,
@@ -100,16 +98,18 @@ fun AppNavigationPortrait(
 ) {
     Scaffold(
         bottomBar = {
-            AppBottomBar(
-                currentDestination = currentDestination,
-                screens = screens,
-                elementOnClick = elementOnClick
-            )
+            val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+            AnimatedVisibility(bottomBarDestination) {
+                AppBottomBar(
+                    currentDestination = currentDestination,
+                    screens = screens,
+                    elementOnClick = elementOnClick
+                )
+            }
         }
     ) {
-        NavigationBarNavGraph(
+        RootNavigationGraph(
             navController = navController,
-            rootNavController = rootNavController,
             modifier = Modifier.padding(bottom = it.calculateBottomPadding()),
             windowSize = windowSize
         )

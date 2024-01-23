@@ -73,7 +73,7 @@ fun AuthenticationScreen(
             }
 
             AuthScreenAction.OpenHomeScreen -> {
-                navController.navigate(Graph.NAVIGATION_BAR_ROUTE)
+                navController.navigate(Graph.MAIN_GRAPH_ROUTE)
             }
         }
     }

@@ -13,7 +13,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.dayker.pexels.core.navigation.graphs.Graph
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.DETAILS_ROUTE
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.IMAGE_ID_PARAM
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.IS_IMAGE_BOOKMARK
 import com.dayker.pexels.core.util.Container
 import com.dayker.pexels.presentation.bookmarks.components.BookmarksGrid
 import com.dayker.pexels.presentation.bookmarks.components.BookmarksTopBar
@@ -31,7 +33,7 @@ fun BookmarksScreen(
         when (action) {
             is BookmarksScreenAction.OpenImageDetails -> {
                 val routeWithParams =
-                    "${Graph.DETAILS_ROUTE}?${Graph.IMAGE_ID_PARAM}=${action.id}&${Graph.IS_IMAGE_BOOKMARK}=${true}"
+                    "${DETAILS_ROUTE}?${IMAGE_ID_PARAM}=${action.id}&${IS_IMAGE_BOOKMARK}=${true}"
                 navController.navigate(route = routeWithParams) {
                     launchSingleTop = true
                 }

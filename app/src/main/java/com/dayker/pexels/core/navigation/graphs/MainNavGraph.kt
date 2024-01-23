@@ -1,13 +1,15 @@
 package com.dayker.pexels.core.navigation.graphs
 
-import android.annotation.SuppressLint
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.dayker.pexels.core.navigation.NavigationBarScreen
+import androidx.navigation.navigation
+import com.dayker.pexels.R
+import com.dayker.pexels.core.navigation.graphs.Graph.MAIN_GRAPH_ROUTE
 import com.dayker.pexels.core.navigation.navanimations.intoLeftAnimation
 import com.dayker.pexels.core.navigation.navanimations.intoRightAnimation
 import com.dayker.pexels.core.navigation.navanimations.outLeftAnimation
@@ -16,17 +18,13 @@ import com.dayker.pexels.presentation.bookmarks.BookmarksScreen
 import com.dayker.pexels.presentation.home.HomeScreen
 import com.dayker.pexels.presentation.profile.ProfileScreen
 
-@SuppressLint("RestrictedApi")
-@Composable
-fun NavigationBarNavGraph(
+fun NavGraphBuilder.mainNavGraph(
+    navController: NavController,
+    windowSize: WindowSizeClass,
     modifier: Modifier = Modifier,
-    navController: NavHostController,
-    rootNavController: NavHostController,
-    windowSize: WindowSizeClass
 ) {
-    NavHost(
-        navController = navController,
-        route = Graph.NAVIGATION_BAR_ROUTE,
+    navigation(
+        route = MAIN_GRAPH_ROUTE,
         startDestination = NavigationBarScreen.Home.route
     ) {
         composable(
@@ -56,7 +54,7 @@ fun NavigationBarNavGraph(
         ) {
             HomeScreen(
                 modifier = modifier,
-                navController = rootNavController
+                navController = navController
             )
         }
         composable(
@@ -94,7 +92,7 @@ fun NavigationBarNavGraph(
         ) {
             BookmarksScreen(
                 modifier = modifier,
-                navController = rootNavController,
+                navController = navController,
             )
         }
         composable(
@@ -129,4 +127,33 @@ fun NavigationBarNavGraph(
             )
         }
     }
+}
+
+
+sealed class NavigationBarScreen(
+    val route: String,
+    @StringRes val title: Int,
+    @DrawableRes val inactiveIcon: Int,
+    @DrawableRes val activeIcon: Int,
+) {
+    object Home : NavigationBarScreen(
+        route = "home",
+        title = R.string.home,
+        activeIcon = R.drawable.picked_home,
+        inactiveIcon = R.drawable.home,
+    )
+
+    object Favorites : NavigationBarScreen(
+        route = "favorites",
+        title = R.string.favorites,
+        activeIcon = R.drawable.picked_favorites,
+        inactiveIcon = R.drawable.favorites,
+    )
+
+    object Profile : NavigationBarScreen(
+        route = "profile",
+        title = R.string.profile,
+        activeIcon = R.drawable.profile_icon,
+        inactiveIcon = R.drawable.person_icon_outlined,
+    )
 }

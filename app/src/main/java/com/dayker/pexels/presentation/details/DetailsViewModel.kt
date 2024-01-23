@@ -3,9 +3,9 @@ package com.dayker.pexels.presentation.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dayker.pexels.core.navigation.graphs.Graph.IMAGE_ID_PARAM
-import com.dayker.pexels.core.navigation.graphs.Graph.IS_IMAGE_BOOKMARK
-import com.dayker.pexels.core.navigation.graphs.Graph.IS_IMAGE_CURATED_PARAM
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.IMAGE_ID_PARAM
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.IS_IMAGE_BOOKMARK
+import com.dayker.pexels.core.navigation.graphs.DetailsScreen.IS_IMAGE_CURATED_PARAM
 import com.dayker.pexels.core.util.Resource
 import com.dayker.pexels.domain.model.Image
 import com.dayker.pexels.domain.repository.ImageRepository
