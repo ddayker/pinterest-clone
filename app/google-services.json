@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "207733028885",
+    "project_id": "pexelslab-cc72a",
+    "storage_bucket": "pexelslab-cc72a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207733028885:android:3d4116b38d2455ba0fb61c",
+        "android_client_info": {
+          "package_name": "com.dayker.pexels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207733028885-tps5o21o071bcoqolmqprh10j1dgtt6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dayker.pexels",
+            "certificate_hash": "418df0b008c3c5df9b6ff7c9fbe4c79067a8c2c7"
+          }
+        },
+        {
+          "client_id": "207733028885-9dcenieo75rjqmnto73afnpfhuovrv11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnXPQwowJe2tjLoAvXFP8uV-jUVN-LLEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207733028885-9dcenieo75rjqmnto73afnpfhuovrv11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

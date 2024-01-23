@@ -2,39 +2,20 @@ package com.dayker.pexels.presentation.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dayker.pexels.domain.repository.OnboardingRepository
+import com.dayker.pexels.domain.usecase.SaveOnboardingStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val onboardingRepository: OnboardingRepository
+    private val saveOnboardingStateUseCase: SaveOnboardingStateUseCase
 ) : ViewModel() {
 
     private val _actionFlow = MutableSharedFlow<OnboardingAction>()
     val actionFlow = _actionFlow.asSharedFlow()
-
-    private var onboardingJob: Job? = null
-
-    init {
-        onboardingJob?.cancel()
-        onboardingJob = viewModelScope.launch(Dispatchers.IO) {
-            onboardingRepository.isOnboardingCompleted()
-                .onEach { isOnboardingCompleted ->
-                    if (isOnboardingCompleted) {
-                        _actionFlow.emit(OnboardingAction.GetStarted)
-                    }
-                }
-                .stateIn(viewModelScope)
-        }
-    }
 
     fun onEvent(event: OnboardingEvent) {
         when (event) {
@@ -52,7 +33,13 @@ class OnboardingViewModel @Inject constructor(
 
             OnboardingEvent.OnClickedGetStarted -> {
                 viewModelScope.launch {
-                    onboardingRepository.saveOnboardingState(isCompleted = true)
+                    saveOnboardingStateUseCase(isCompleted = true)
+                        .onSuccess {
+                            _actionFlow.emit(OnboardingAction.GetStarted)
+                        }
+                        .onFailure {
+                            saveOnboardingStateUseCase(isCompleted = true)
+                        }
                 }
             }
         }

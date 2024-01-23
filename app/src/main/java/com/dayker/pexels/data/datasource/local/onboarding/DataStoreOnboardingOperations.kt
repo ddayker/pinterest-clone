@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -26,7 +26,7 @@ class DataStoreOnboardingOperations @Inject constructor(
         }
     }
 
-    override fun isOnboardingCompleted(): Flow<Boolean> {
+    override suspend fun isOnboardingCompleted(): Boolean {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) emptyPreferences()
@@ -35,6 +35,6 @@ class DataStoreOnboardingOperations @Inject constructor(
             .map { preferences ->
                 val onBoardingState = preferences[ON_BOARDING_KEY] ?: false
                 onBoardingState
-            }
+            }.first()
     }
 }

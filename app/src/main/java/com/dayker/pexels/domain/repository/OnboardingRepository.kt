@@ -1,10 +1,8 @@
 package com.dayker.pexels.domain.repository
 
-import kotlinx.coroutines.flow.Flow
-
 interface OnboardingRepository {
 
-    suspend fun saveOnboardingState(isCompleted: Boolean)
+    suspend fun saveOnboardingState(isCompleted: Boolean): Result<Unit>
 
-    fun isOnboardingCompleted(): Flow<Boolean>
+    suspend fun isOnboardingCompleted(): Boolean
 }

@@ -32,9 +32,8 @@ fun OnboardingButton(
             containerColor = MaterialTheme.colorScheme.secondary,
             contentColor = MaterialTheme.colorScheme.onBackground
         ),
-        onClick = {
-            onClick()
-        }) {
+        onClick = onClick
+    ) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.back),
             contentDescription = null,
