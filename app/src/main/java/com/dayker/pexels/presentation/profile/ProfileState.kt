@@ -5,5 +5,4 @@ data class ProfileState(
     val email: String = "",
     val name: String = "",
     val pictureUrl: String = ""
-
 )

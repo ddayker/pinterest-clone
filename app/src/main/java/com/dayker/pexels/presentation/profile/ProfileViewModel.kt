@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    authClient: AuthClient
+    private val authClient: AuthClient
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ProfileState())
@@ -44,6 +44,7 @@ class ProfileViewModel @Inject constructor(
         when (event) {
             ProfileScreenEvent.OnLogOutClicked -> {
                 viewModelScope.launch {
+                    authClient.signOut()
                     _actionFlow.emit(ProfileScreenAction.LogOut)
                 }
             }

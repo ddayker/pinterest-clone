@@ -70,7 +70,7 @@ class FirebaseAuthClient @Inject constructor(
         }
     }
 
-    override suspend fun getSignedInUser(): User? = auth.currentUser?.run {
+    override fun getSignedInUser(): User? = auth.currentUser?.run {
         User(
             userId = uid,
             username = displayName,

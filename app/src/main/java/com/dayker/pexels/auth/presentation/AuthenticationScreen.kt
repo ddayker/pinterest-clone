@@ -73,7 +73,11 @@ fun AuthenticationScreen(
             }
 
             AuthScreenAction.OpenHomeScreen -> {
-                navController.navigate(Graph.MAIN_GRAPH_ROUTE)
+                navController.navigate(route = Graph.MAIN_GRAPH_ROUTE) {
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }
@@ -101,11 +105,11 @@ fun AuthenticationScreen(
             Text(
                 modifier = Modifier.padding(horizontal = 30.dp),
                 text = buildAnnotatedString {
-                    append(stringResource(R.string.explore_))
+                    append(stringResource(R.string.sign_in_to_explore))
                     withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                        append(stringResource(R.string.pexels))
+                        append(stringResource(R.string.pexels_))
                     }
-                    append(stringResource(R.string.now))
+                    append(stringResource(R.string.white_heart_emj))
                 }
             )
             GoogleSignInButton(

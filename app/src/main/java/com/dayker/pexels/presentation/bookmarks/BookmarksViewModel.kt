@@ -29,7 +29,6 @@ class BookmarksViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             repository.getBookmarks().onEach { resource ->
-                println(resource)
                 when (resource) {
                     is Resource.Error -> {
                         _state.update {

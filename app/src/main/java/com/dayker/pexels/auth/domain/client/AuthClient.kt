@@ -10,5 +10,5 @@ interface AuthClient {
     suspend fun initiateSignIn(): IntentSender?
     suspend fun completeSignIn(intent: Intent): SignInResult
     suspend fun signOut()
-    suspend fun getSignedInUser(): User?
+    fun getSignedInUser(): User?
 }

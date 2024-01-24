@@ -27,4 +27,6 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="profile">Profile</string>
     <string name="log_out">Log out</string>
+    <string name="white_heart_emj">🤍</string>
+    <string name="sign_in_to_explore">"Sign in to explore "</string>
 </resources>

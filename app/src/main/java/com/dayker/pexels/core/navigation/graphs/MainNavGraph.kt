@@ -6,7 +6,9 @@ import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.dayker.pexels.R
 import com.dayker.pexels.core.navigation.graphs.Graph.MAIN_GRAPH_ROUTE
@@ -14,7 +16,10 @@ import com.dayker.pexels.core.navigation.navanimations.intoLeftAnimation
 import com.dayker.pexels.core.navigation.navanimations.intoRightAnimation
 import com.dayker.pexels.core.navigation.navanimations.outLeftAnimation
 import com.dayker.pexels.core.navigation.navanimations.outRightAnimation
+import com.dayker.pexels.core.navigation.navanimations.scaleInAnimation
+import com.dayker.pexels.core.navigation.navanimations.scaleOutAnimation
 import com.dayker.pexels.presentation.bookmarks.BookmarksScreen
+import com.dayker.pexels.presentation.details.DetailsScreen
 import com.dayker.pexels.presentation.home.HomeScreen
 import com.dayker.pexels.presentation.profile.ProfileScreen
 
@@ -126,9 +131,44 @@ fun NavGraphBuilder.mainNavGraph(
                 windowSize = windowSize
             )
         }
+        composable(
+            route = DetailsScreen.DETAILS_ROUTE + "?${DetailsScreen.IMAGE_ID_PARAM}={${DetailsScreen.IMAGE_ID_PARAM}}&${DetailsScreen.IS_IMAGE_CURATED_PARAM}={${DetailsScreen.IS_IMAGE_CURATED_PARAM}}&${DetailsScreen.IS_IMAGE_BOOKMARK}={${DetailsScreen.IS_IMAGE_BOOKMARK}}",
+            arguments = listOf(
+                navArgument(
+                    name = DetailsScreen.IMAGE_ID_PARAM
+                ) {
+                    type = NavType.IntType
+                },
+                navArgument(
+                    name = DetailsScreen.IS_IMAGE_CURATED_PARAM
+                ) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+                navArgument(
+                    name = DetailsScreen.IS_IMAGE_BOOKMARK
+                ) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            ),
+            enterTransition = {
+                scaleInAnimation()
+            },
+            popEnterTransition = {
+                scaleInAnimation()
+            },
+            exitTransition = {
+                scaleOutAnimation()
+            },
+            popExitTransition = {
+                scaleOutAnimation()
+            }
+        ) {
+            DetailsScreen(navController = navController)
+        }
     }
 }
-
 
 sealed class NavigationBarScreen(
     val route: String,
@@ -156,4 +196,18 @@ sealed class NavigationBarScreen(
         activeIcon = R.drawable.profile_icon,
         inactiveIcon = R.drawable.person_icon_outlined,
     )
+
+    companion object {
+        fun getAllNavigationScreens(): List<NavigationBarScreen> {
+            return listOf(Home, Favorites, Profile)
+        }
+    }
+}
+
+
+object DetailsScreen {
+    const val DETAILS_ROUTE = "details_route"
+    const val IMAGE_ID_PARAM = "movie_id"
+    const val IS_IMAGE_CURATED_PARAM = "image_curated"
+    const val IS_IMAGE_BOOKMARK = "image_bookmark"
 }

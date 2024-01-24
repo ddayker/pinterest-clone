@@ -29,7 +29,11 @@ fun ProfileScreen(
     Container(viewModel.actionFlow) { action ->
         when (action) {
             ProfileScreenAction.LogOut -> {
-                navController.navigate(Graph.AUTH_GRAPH_ROUTE)
+                navController.navigate(route = Graph.AUTH_GRAPH_ROUTE) {
+                    popUpTo(navController.graph.id) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }
